@@ -1,5 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations.Schema;
+using static ViewModel.EnumBase;
 
 namespace Entity
 {
@@ -7,16 +8,9 @@ namespace Entity
     {
         public decimal TotalAmount { get; set; }
         public PaymentType PaymentType { get; set; }
-        public int BasketItemId { get; set; }
-        [ForeignKey("BasketItemId")]
-        public virtual BasketItem BasketItem { get; set; }
+        public int BasketId { get; set; }
+        [ForeignKey("BasketId")]
+        public virtual Basket Basket { get; set; }
 
-    }
-    public enum PaymentType
-    {
-        CreditCard = 1,
-        DebitCard = 2,
-        Paypal = 3,
-        Cash = 4,
     }
 }

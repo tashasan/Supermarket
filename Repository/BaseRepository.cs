@@ -2,6 +2,7 @@
 using Context;
 using Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Repository
 {
@@ -13,16 +14,16 @@ namespace Repository
             _dbContext = dbContext;
         }
 
-        public async Task<T> Add(T entity)
+        public T Add(T entity)
         {
-            entity.CreatedAt = DateTime.Now;
-            await _dbContext.AddAsync(entity);
+            entity.CreatedAt = DateTime.Now.ToLocalTime();
+            _dbContext.Entry(entity).State = EntityState.Added;
             return entity;
         }
 
         public T Delete(T entity)
         {
-            entity.DeletedAt = DateTime.Now;
+            entity.DeletedAt = DateTime.Now.ToLocalTime();
             Update(entity);
             return entity;
         }
@@ -30,6 +31,16 @@ namespace Repository
         public async Task<T> Find(int id)
         {
             return await Set().FindAsync(id);
+        }
+
+        public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> whereCondition)
+        {
+            return  Set().Where(whereCondition);
+        }
+
+        public async Task<T> GetFirst(Expression<Func<T, bool>> whereCondition)
+        {
+            return await Set().FirstOrDefaultAsync(whereCondition);
         }
 
         public async Task<List<T>> List()
@@ -44,9 +55,9 @@ namespace Repository
 
         public T Update(T entity)
         {
-            entity.UpdatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now.ToLocalTime();
             _dbContext.Entry(entity).State = EntityState.Modified;
             return entity;
-        }   
+        }
     }
 }

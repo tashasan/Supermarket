@@ -1066,11 +1066,24 @@
       "Entity/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "ViewModel": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Entity.dll": {}
         },
         "runtime": {
           "bin/placeholder/Entity.dll": {}
+        }
+      },
+      "ViewModel/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ViewModel.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ViewModel.dll": {}
         }
       }
     }
@@ -3251,6 +3264,11 @@
       "type": "project",
       "path": "../Entity/Entity.csproj",
       "msbuildProject": "../Entity/Entity.csproj"
+    },
+    "ViewModel/1.0.0": {
+      "type": "project",
+      "path": "../ViewModel/ViewModel.csproj",
+      "msbuildProject": "../ViewModel/ViewModel.csproj"
     }
   },
   "projectFileDependencyGroups": {

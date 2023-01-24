@@ -91,3 +91,7 @@ C:\Users\hasan\Desktop\Supermarket\Supermarket\api\obj\Debug\net6.0\refint\api.d
 C:\Users\hasan\Desktop\Supermarket\Supermarket\api\obj\Debug\net6.0\api.pdb
 C:\Users\hasan\Desktop\Supermarket\Supermarket\api\obj\Debug\net6.0\api.genruntimeconfig.cache
 C:\Users\hasan\Desktop\Supermarket\Supermarket\api\obj\Debug\net6.0\ref\api.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\api\bin\Debug\net6.0\Business.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\api\bin\Debug\net6.0\ViewModel.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\api\bin\Debug\net6.0\Business.pdb
+C:\Users\hasan\Desktop\Supermarket\Supermarket\api\bin\Debug\net6.0\ViewModel.pdb

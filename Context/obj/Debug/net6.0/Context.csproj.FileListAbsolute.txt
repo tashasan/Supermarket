@@ -13,3 +13,5 @@ C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.
 C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\refint\Context.dll
 C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.pdb
 C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\ref\Context.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\ViewModel.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\ViewModel.pdb

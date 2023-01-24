@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Context.Migrations
 {
     /// <inheritdoc />
@@ -73,6 +75,30 @@ namespace Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Baskets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    isSold = table.Column<bool>(type: "bit", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Baskets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Baskets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BasketItems",
                 columns: table => new
                 {
@@ -81,7 +107,7 @@ namespace Context.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    BasketId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -90,15 +116,15 @@ namespace Context.Migrations
                 {
                     table.PrimaryKey("PK_BasketItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BasketItems_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
+                        name: "FK_BasketItems_Baskets_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Baskets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BasketItems_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
+                        name: "FK_BasketItems_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,7 +137,7 @@ namespace Context.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentType = table.Column<int>(type: "int", nullable: false),
-                    BasketItemId = table.Column<int>(type: "int", nullable: false),
+                    BasketId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -120,17 +146,44 @@ namespace Context.Migrations
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_BasketItems_BasketItemId",
-                        column: x => x.BasketItemId,
-                        principalTable: "BasketItems",
+                        name: "FK_Orders_Baskets_BasketId",
+                        column: x => x.BasketId,
+                        principalTable: "Baskets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CategoryName", "CreatedAt", "DeletedAt", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, "Staple Food", new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2870), null, null },
+                    { 2, "Chocolates", new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2871), null, null },
+                    { 3, "Drinks", new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2872), null, null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "UpdatedAt" },
-                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "example@msn.com", "Jon", "Brown", "trustme", "905001112233", null });
+                values: new object[] { 1, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2771), null, "example@msn.com", "Jon", "Brown", "trustme", "905001112233", null });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "CreatedAt", "DeletedAt", "Name", "Stock", "UnitPrice", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2885), null, "Liquid Oil", 100, 25m, null },
+                    { 2, 1, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2886), null, "Flour", 80, 12m, null },
+                    { 3, 2, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2887), null, "Nutella", 40, 18m, null },
+                    { 4, 3, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2887), null, "Soda", 30, 8m, null },
+                    { 5, 3, new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2888), null, "Water", 90, 5m, null }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BasketItems_BasketId",
+                table: "BasketItems",
+                column: "BasketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BasketItems_ProductId",
@@ -138,14 +191,14 @@ namespace Context.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItems_UserId",
-                table: "BasketItems",
+                name: "IX_Baskets_UserId",
+                table: "Baskets",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_BasketItemId",
+                name: "IX_Orders_BasketId",
                 table: "Orders",
-                column: "BasketItemId");
+                column: "BasketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -157,19 +210,22 @@ namespace Context.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "BasketItems");
 
             migrationBuilder.DropTable(
-                name: "BasketItems");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Baskets");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

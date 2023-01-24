@@ -623,8 +623,16 @@
         }
       },
       "Entity/1.0.0": {
+        "dependencies": {
+          "ViewModel": "1.0.0"
+        },
         "runtime": {
           "Entity.dll": {}
+        }
+      },
+      "ViewModel/1.0.0": {
+        "runtime": {
+          "ViewModel.dll": {}
         }
       }
     }
@@ -1075,6 +1083,11 @@
       "sha512": ""
     },
     "Entity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ViewModel/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

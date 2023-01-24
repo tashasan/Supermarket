@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230124044355_InitialMigration")]
+    [Migration("20230124124006_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -25,6 +25,39 @@ namespace Context.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Entity.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isSold")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Baskets");
+                });
+
             modelBuilder.Entity("Entity.BasketItem", b =>
                 {
                     b.Property<int>("Id")
@@ -32,6 +65,9 @@ namespace Context.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -51,14 +87,11 @@ namespace Context.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("BasketId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("BasketItems");
                 });
@@ -87,6 +120,26 @@ namespace Context.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryName = "Staple Food",
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2870)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryName = "Chocolates",
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2871)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryName = "Drinks",
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2872)
+                        });
                 });
 
             modelBuilder.Entity("Entity.Order", b =>
@@ -97,7 +150,7 @@ namespace Context.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BasketItemId")
+                    b.Property<int>("BasketId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
@@ -117,7 +170,7 @@ namespace Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BasketItemId");
+                    b.HasIndex("BasketId");
 
                     b.ToTable("Orders");
                 });
@@ -157,6 +210,53 @@ namespace Context.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2885),
+                            Name = "Liquid Oil",
+                            Stock = 100,
+                            UnitPrice = 25m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2886),
+                            Name = "Flour",
+                            Stock = 80,
+                            UnitPrice = 12m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2887),
+                            Name = "Nutella",
+                            Stock = 40,
+                            UnitPrice = 18m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2887),
+                            Name = "Soda",
+                            Stock = 30,
+                            UnitPrice = 8m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2888),
+                            Name = "Water",
+                            Stock = 90,
+                            UnitPrice = 5m
+                        });
                 });
 
             modelBuilder.Entity("Entity.User", b =>
@@ -204,7 +304,7 @@ namespace Context.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2023, 1, 24, 15, 40, 6, 767, DateTimeKind.Local).AddTicks(2771),
                             Email = "example@msn.com",
                             FirstName = "Jon",
                             LastName = "Brown",
@@ -213,34 +313,45 @@ namespace Context.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entity.Basket", b =>
+                {
+                    b.HasOne("Entity.User", "User")
+                        .WithMany("Baskets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Entity.BasketItem", b =>
                 {
+                    b.HasOne("Entity.Basket", "Basket")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entity.Product", "Product")
                         .WithMany("BasketItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.User", "User")
-                        .WithMany("BasketItems")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Basket");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entity.Order", b =>
                 {
-                    b.HasOne("Entity.BasketItem", "BasketItem")
-                        .WithMany("Orders")
-                        .HasForeignKey("BasketItemId")
+                    b.HasOne("Entity.Basket", "Basket")
+                        .WithMany()
+                        .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BasketItem");
+                    b.Navigation("Basket");
                 });
 
             modelBuilder.Entity("Entity.Product", b =>
@@ -254,9 +365,9 @@ namespace Context.Migrations
                     b.Navigation("Categories");
                 });
 
-            modelBuilder.Entity("Entity.BasketItem", b =>
+            modelBuilder.Entity("Entity.Basket", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("BasketItems");
                 });
 
             modelBuilder.Entity("Entity.Category", b =>
@@ -271,7 +382,7 @@ namespace Context.Migrations
 
             modelBuilder.Entity("Entity.User", b =>
                 {
-                    b.Navigation("BasketItems");
+                    b.Navigation("Baskets");
                 });
 #pragma warning restore 612, 618
         }
