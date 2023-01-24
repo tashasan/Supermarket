@@ -1,5 +1,7 @@
 using Context;
 using Microsoft.EntityFrameworkCore;
+using Repository;
+using Repository.ProductRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("Baglanti")));
-
+builder.Services.AddDbContext<ApplicationDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProductRepositoryService, ProductRepositoryService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

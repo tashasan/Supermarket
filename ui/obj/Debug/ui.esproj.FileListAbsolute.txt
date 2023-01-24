@@ -1,0 +1,2 @@
+C:\Users\hasan\Desktop\Supermarket\Supermarket\ui\obj\Debug\ui.esproj.SuggestedBindingRedirects.cache
+C:\Users\hasan\Desktop\Supermarket\Supermarket\ui\obj\Debug\ui.esproj.CoreCompileInputs.cache

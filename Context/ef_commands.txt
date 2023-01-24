@@ -1,0 +1,2 @@
+dotnet ef --startup-project ../api/ migrations add InitialMigration --context ApplicationDbContext
+dotnet ef --startup-project ../api/ database update --context ApplicationDbContext

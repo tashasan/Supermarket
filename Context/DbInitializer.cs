@@ -22,7 +22,8 @@ namespace Context
                 Password = "trustme",
                 FirstName = "Jon",
                 LastName = "Brown",
-                PhoneNumber = "905001112233"
+                PhoneNumber = "905001112233",
+                CreatedAt= DateTime.Now,
             };
             _modelBuilder.Entity<User>().HasData(user);
         }

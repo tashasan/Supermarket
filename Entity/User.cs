@@ -10,6 +10,6 @@ namespace Entity
         public string Email { get; set; }
         public string Password { get; set; }
         public string PhoneNumber { get; set; }
-        [InverseProperty("ProductOwner")] public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<BasketItem> BasketItems { get; set; }
     }
 }
