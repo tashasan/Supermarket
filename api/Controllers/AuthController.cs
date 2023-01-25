@@ -16,11 +16,11 @@ namespace api.Controllers
         [Route("Login/{username}/{password}")]
         public async Task<IActionResult> Login(string username, string password)
         {
-            var loginUser = _authBusiness.Login(username, password);
-            if (!loginUser.IsCompletedSuccessfully)
+            var loginUser = _authBusiness.Login(username, password).Result;
+            if (loginUser == null)
                 return BadRequest("Login Failed");
 
-            return Ok(await loginUser);
+            return Ok(loginUser);
         }
     }
 }

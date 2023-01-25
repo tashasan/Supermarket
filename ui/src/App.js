@@ -1,59 +1,51 @@
-import React, { Component } from 'react';
+import React from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import HandleAlert from "./hooks/useAlert";
+import Landing from "./pages/Landing";
+import UI from "./pages/UI";
+import Sidebar from "./components/Sidebar";
 
-export default class App extends Component {
-    static displayName = App.name;
 
-    constructor(props) {
-        super(props);
-        this.state = { forecasts: [], loading: true };
-    }
+function LandingPages() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    });
+    return (
+        <div>
+            {HandleAlert()}
+            <Outlet />
+        </div>
+    )
 
-    componentDidMount() {
-        this.populateWeatherData();
-    }
-
-    static renderForecastsTable(forecasts) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
-
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : App.renderForecastsTable(this.state.forecasts);
-
-        return (
-            <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                {contents}
-            </div>
-        );
-    }
-
-    async populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        this.setState({ forecasts: data, loading: false });
-    }
 }
+function UIPages() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    });
+    return (
+        <div className="container-fluid p-0">
+            <div className="row">
+                <div className="col-2" > <Sidebar /></div>
+                <div className="col-10"><Outlet /></div>
+            </div>
+        </div>)
+}
+export const App = () => {
+
+    return (
+        <Routes>
+            <Route element={<LandingPages />}>
+                <Route path="/" element={<Landing.Login />} />
+            </Route>
+            <Route element={<UIPages />}>
+                <Route path="/products" element={<UI.ProductList />} />
+                <Route path="/product/edit/:id" element={<UI.ProductEdit />} />
+                <Route path="/product/create" element={<UI.ProductCreate />} />
+                <Route path="/basket" element={<UI.Basket />} />
+            </Route>
+        </Routes>
+    );
+};
+
+export default App;

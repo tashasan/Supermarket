@@ -21,7 +21,7 @@ namespace api.Controllers
             if (addCategory.Result.Id == 0)
                 return BadRequest("Insert Operation Failed.");
 
-            return Ok(await addCategory);
+            return Ok( addCategory.Result);
         }
     }
 }

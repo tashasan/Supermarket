@@ -21,27 +21,27 @@ namespace api.Controllers
             if (!addProduct.IsCompletedSuccessfully)
                 return BadRequest("Insert Operation Failed.");
 
-            return Ok(await addProduct);
+            return Ok( addProduct);
         }
         [HttpPut]
         [Route("Update/{id:int}")]
-        public async Task<IActionResult> Update(int id,[FromBody] ProductVM vM)
+        public async Task<IActionResult> Update(int id, [FromBody] ProductVM vM)
         {
-            var editProduct = _productBusiness.EditProduct(id,vM);
+            var editProduct = _productBusiness.EditProduct(id, vM);
             if (!editProduct.IsCompletedSuccessfully)
                 return BadRequest("Update Operation Failed.");
 
-            return Ok(await editProduct);
+            return Ok(editProduct.Result);
         }
         [HttpDelete]
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var removeProduct = _productBusiness.RemoveProduct(id);
-            if (!removeProduct.IsCompletedSuccessfully)
+            var removeProduct =await _productBusiness.RemoveProduct(id);
+            if (removeProduct.Id == null)
                 return BadRequest("");
-
-            return Ok("Delete Operation Successfully Complated.");
+            string message = "Delete Operation Successfully Complated.";
+            return Ok(message);
         }
         [HttpGet]
         [Route("GetById/{id:int}")]
@@ -51,17 +51,17 @@ namespace api.Controllers
             if (addProduct.IsFaulted)
                 return BadRequest("");
 
-            return Ok(await addProduct);
+            return Ok( addProduct.Result);
         }
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var addProduct = _productBusiness.GetAllProducts();
-            if (addProduct.IsFaulted)
+            var getProduct = _productBusiness.GetAllProducts();
+            if (getProduct.IsFaulted)
                 return BadRequest("");
 
-            return Ok(await addProduct);
+            return Ok(getProduct.Result);
         }
     }
 }

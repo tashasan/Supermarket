@@ -22,7 +22,7 @@ namespace Business.CategoryBusiness
                 {
                     model.CategoryName = vM.CategoryName;
                     var result = _unitOfWork.CategoryRepositoryService.Add(model);
-                    await _unitOfWork.CommitAsync();
+                    _unitOfWork.CommitAsync();
                 }
                 return model;
 

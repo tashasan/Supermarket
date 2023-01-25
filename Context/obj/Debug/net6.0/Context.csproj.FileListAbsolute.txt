@@ -1,0 +1,17 @@
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\Context.deps.json
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\Context.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\Context.pdb
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\Entity.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\ViewModel.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\Entity.pdb
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\bin\Debug\net6.0\ViewModel.pdb
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.csproj.AssemblyReference.cache
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.AssemblyInfoInputs.cache
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.AssemblyInfo.cs
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.csproj.CoreCompileInputs.cache
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.csproj.CopyComplete
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\refint\Context.dll
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\Context.pdb
+C:\Users\hasan\Desktop\Supermarket\Supermarket\Context\obj\Debug\net6.0\ref\Context.dll

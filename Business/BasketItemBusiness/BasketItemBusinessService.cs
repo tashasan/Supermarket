@@ -25,7 +25,7 @@ namespace Business.BasketItemBusiness
                     model.TotalPrice = checkStock.UnitPrice * vM.Quantity;
                     model.BasketId = basketId;
                     var result = _unitOfWork.BasketItemRepositoryService.Add(model);
-                    await _unitOfWork.CommitAsync();
+                     _unitOfWork.CommitAsync();
                 }
 
                 return model;

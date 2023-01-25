@@ -24,7 +24,7 @@ namespace Business.ProductBusiness
                     model.UnitPrice = vM.ProductUnitPrice;
                     model.CategoryId = vM.CategoryId;
                     var result = _unitOfWork.ProductRepositoryService.Add(model);
-                    await _unitOfWork.CommitAsync();
+                    _unitOfWork.CommitAsync();
                 }
                 return model;
 
@@ -55,7 +55,7 @@ namespace Business.ProductBusiness
         {
             try
             {
-                var getId = await _unitOfWork.ProductRepositoryService.GetFirst(a => a.Id == id);
+                var getId = _unitOfWork.ProductRepositoryService.GetFirst(a => a.Id == id);
                 var result = _unitOfWork.ProductRepositoryService.Find(getId.Id);
                 return result.Result;
 
@@ -71,9 +71,9 @@ namespace Business.ProductBusiness
         {
             try
             {
-                var getProduct = await _unitOfWork.ProductRepositoryService.Find(id);
-                var result = _unitOfWork.ProductRepositoryService.Delete(getProduct);
-                await _unitOfWork.CommitAsync();
+                var getProduct = _unitOfWork.ProductRepositoryService.Find(id);
+                var result = _unitOfWork.ProductRepositoryService.Delete(getProduct.Result);
+                _unitOfWork.CommitAsync();
                 return result;
 
             }
@@ -88,14 +88,14 @@ namespace Business.ProductBusiness
         {
             try
             {
-                var getProduct = await _unitOfWork.ProductRepositoryService.Find(id);
+                var getProduct = _unitOfWork.ProductRepositoryService.GetFirst(p => p.Id == id && p.DeletedAt == null).Result;
 
                 getProduct.Name = vM.ProductName;
                 getProduct.Stock = vM.ProductStock;
                 getProduct.UnitPrice = vM.ProductUnitPrice;
                 getProduct.CategoryId = vM.CategoryId;
                 var result = _unitOfWork.ProductRepositoryService.Update(getProduct);
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.CommitAsync();
                 return result;
 
             }

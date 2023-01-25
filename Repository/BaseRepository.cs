@@ -30,7 +30,7 @@ namespace Repository
 
         public async Task<T> Find(int id)
         {
-            return await Set().FindAsync(id);
+            return  Set().FindAsync(id).Result;
         }
 
         public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> whereCondition)

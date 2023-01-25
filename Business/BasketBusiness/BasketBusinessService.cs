@@ -21,7 +21,7 @@ namespace Business.BasketBusiness
                     model.UserId = userId;
                     model.isSold = false;
                     _unitOfWork.BasketRepositoryService.Add(model);
-                    await _unitOfWork.CommitAsync();
+                    _unitOfWork.CommitAsync();
                 }
                 else { model.Id = checkBasket.Result.Id; }
 
@@ -39,9 +39,19 @@ namespace Business.BasketBusiness
             throw new NotImplementedException();
         }
 
-        public Task<Basket> GetBasketItemById(int id)
+        public Task<Basket> GetBasketIdByUserId(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var getId = _unitOfWork.BasketRepositoryService.GetFirst(a => a.UserId == id && a.isSold == false);
+                return getId;
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
         public Task<Basket> RemoveBasketItem(int id)
