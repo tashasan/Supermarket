@@ -1,6 +1,5 @@
 ﻿using Entity;
 using Repository;
-using ViewModel;
 
 namespace Business.BasketBusiness
 {
@@ -11,22 +10,21 @@ namespace Business.BasketBusiness
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<Basket> CreateBasket(int userId)
         {
             try
             {
                 Basket model = new Basket();
-                var checkBasket = _unitOfWork.BasketRepositoryService.GetFirst(a => a.UserId == userId);
-                if (checkBasket.Result == null)
+                var checkBasket = _unitOfWork.BasketRepositoryService.GetFirst(a => a.UserId == userId && a.isSold == false);
+                if (checkBasket.Result == null || checkBasket.Result.isSold == true)
                 {
                     model.UserId = userId;
                     model.isSold = false;
-                    model.TotalPrice = 0;
                     _unitOfWork.BasketRepositoryService.Add(model);
                     await _unitOfWork.CommitAsync();
                 }
-                model.Id = checkBasket.Result.Id;
+                else { model.Id = checkBasket.Result.Id; }
+
                 return model;
             }
             catch (Exception)
@@ -58,9 +56,8 @@ namespace Business.BasketBusiness
                 var checkBasket = _unitOfWork.BasketRepositoryService.Find(id).Result;
                 var getSup = _unitOfWork.BasketItemRepositoryService.Get(b => b.BasketId == id).Result.Select(s => s.TotalPrice).ToArray();
                 decimal total = getSup.Sum();
-                checkBasket.TotalPrice = total;
                 _unitOfWork.BasketRepositoryService.Update(checkBasket);
-                await _unitOfWork.CommitAsync();
+                _unitOfWork.CommitAsync();
                 return checkBasket;
             }
             catch (Exception)

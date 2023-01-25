@@ -47,7 +47,7 @@ namespace Business.BasketItemBusiness
                 getBasket.Result.Quantity = quantity;
                 getBasket.Result.TotalPrice = checkStock.UnitPrice * quantity;
                 var result = _unitOfWork.BasketItemRepositoryService.Update(getBasket.Result);
-                await _unitOfWork.CommitAsync();
+                 _unitOfWork.CommitAsync();
                 return result;
 
             }
@@ -77,7 +77,7 @@ namespace Business.BasketItemBusiness
         {
             try
             {
-                var getId = await _unitOfWork.BasketItemRepositoryService.GetFirst(a => a.Id == id);
+                var getId =  _unitOfWork.BasketItemRepositoryService.GetFirst(a => a.Id == id);
                 var result = _unitOfWork.BasketItemRepositoryService.Find(getId.Id);
                 return result.Result;
 
@@ -93,9 +93,13 @@ namespace Business.BasketItemBusiness
         {
             try
             {
-                var getBasket = await _unitOfWork.BasketItemRepositoryService.GetFirst(u => u.Id == id);
-                var result = _unitOfWork.BasketItemRepositoryService.Delete(getBasket);
-                await _unitOfWork.CommitAsync();
+                var getBasket = _unitOfWork.BasketItemRepositoryService.GetFirst(u => u.Id == id && u.DeletedAt == null);
+                if (getBasket.Result == null)
+                {
+                  return null;
+                }
+                var result = _unitOfWork.BasketItemRepositoryService.Delete(getBasket.Result);
+                _unitOfWork.CommitAsync();
                 return result;
 
             }
