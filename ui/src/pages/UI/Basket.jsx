@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { DetailsList, SelectionMode, Stack, PrimaryButton, CommandBar } from "@fluentui/react";
+import { DetailsList, SelectionMode, Stack, PrimaryButton } from "@fluentui/react";
 import Actions from "../../store/redux/actions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,8 +76,8 @@ export default function Basket() {
     ]
     console.log((paymentTypes))
     const onPurchase = async () => {
-        await dispatch(Actions.basketActions.purchaseAction(basketId, paymentTypes))
-        setPaymentType(0)
+        dispatch(Actions.basketActions.purchaseAction(basketId, paymentTypes))
+        await setPaymentType(0)
         window.location.reload(1)
     }
     if (paymentTypes === 0) {
@@ -104,15 +104,17 @@ export default function Basket() {
     return (
         <div className="container-fluid">
             <div className="fs-2 text-center">Cart Items</div>
-
             <DetailsList
+                className="ms-2"
                 items={basketItems}
                 columns={columns}
                 SelectionMode={SelectionMode.none}
             />
             <div className="row">
-                <div className="col-5">
+                <div className="col-4"></div>
+                <div className="col-8 mt-5">
                     <form >
+                        <label>Choose a payment type please..</label>
                         <div >
                             <input
                                 type="radio"
@@ -148,7 +150,7 @@ export default function Basket() {
                         </div>
 
                         <div >
-                            <button className="btn btn-primary ms-5" onClick={onPurchase} >Purchase</button>
+                            <button className="btn btn-success ms-5 mt-2" onClick={onPurchase} >Purchase</button>
                         </div>
                     </form>
                 </div>

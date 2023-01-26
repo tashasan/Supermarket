@@ -21,16 +21,16 @@ export default function ProductCreate() {
         setPageData(initialState.product.product)
     }
     return (
-        <div className="container-fluid ms-5">
+        <div className="container-fluid">
             <div className="fs-2 text-center">Create Product</div>
             <Stack className='text-center'
                 tokens={{ childrenGap: 10 }}
                 styles={
                     {
                         root: {
-                            width: 700,
-                            marginLeft: 10,
-                            marginTop: 10
+                            width: 300,
+                            marginLeft: 480,
+                            marginTop: 20
                         }
                     }
                 }>
@@ -68,7 +68,7 @@ export default function ProductCreate() {
                 <PrimaryButton
                     text="Create"
                     onClick={() => onCreate()}
-                    style={{ width: "10%", height: "50px" }}
+                    style={{ width: "20%", height: "50px",marginLeft:110 }}
                 />
 
             </Stack>

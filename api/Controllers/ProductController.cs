@@ -37,7 +37,7 @@ namespace api.Controllers
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var removeProduct =await _productBusiness.RemoveProduct(id);
+            var removeProduct = _productBusiness.RemoveProduct(id).Result;
             if (removeProduct.Id == null)
                 return BadRequest("");
             string message = "Delete Operation Successfully Complated.";

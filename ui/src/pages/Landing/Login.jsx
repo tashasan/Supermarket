@@ -1,8 +1,6 @@
 import { useState } from "react";
-import Form from 'react-bootstrap/Form'
-import { useDispatch, useSelector } from "react-redux";
-import Button from "react-bootstrap/Button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {  useLocation, useNavigate } from "react-router-dom";
 import Actions from "../../store/redux/actions";
 import { Stack, PrimaryButton, TextField } from "@fluentui/react"
 
@@ -26,8 +24,8 @@ function Login() {
     const content = (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-4"></div>
-                <div className="col-8 mt-5">
+                <div className="col-5"></div>
+                <div className="col-7 mt-5">
                     <form
                         onSubmit={onLogin}
                         className="form-group col-lg-8 col-sm-6 offset-sm-3 offset-lg-0 ps-0"
@@ -37,9 +35,9 @@ function Login() {
                             styles={
                                 {
                                     root: {
-                                        width: 700,
-                                        marginLeft: 10,
-                                        marginTop: 10
+                                        width: 250,
+                                        marginLeft: 0,
+                                        marginTop: 100
                                     }
                                 }
                             }>
@@ -62,7 +60,7 @@ function Login() {
                             <PrimaryButton
                                 text="Login"
                                 type="submit"
-                                style={{ width: "20%", height: "50px",marginLeft:280 }}
+                                style={{ width: "20%", height: "50px",marginLeft:80 }}
                             />
 
                         </Stack>

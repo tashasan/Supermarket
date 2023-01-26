@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DetailsList, SelectionMode, Stack, PrimaryButton, CommandBar } from "@fluentui/react";
+import { DetailsList, SelectionMode, Stack, PrimaryButton } from "@fluentui/react";
 import Actions from "../../store/redux/actions";
 import { useNavigate } from 'react-router-dom';
+
 const columnProps = {
     tokens: { childrenGap: 20 },
     style: { root: { width: 100 } }
@@ -65,7 +66,7 @@ const ProductList = () => {
             onRender: (item) => (
                 <Stack {...columnProps} horizontal>
                     <PrimaryButton
-                    className="btn btn-info"
+                        className="btn btn-info"
                         text="Add to Cart"
                         onClick={() => AddToCart(currentUser, { productId: item.id, quantity: item.stock })}
                     />
@@ -75,7 +76,7 @@ const ProductList = () => {
                         onClick={() => navigate("/product/edit/" + item.id,
                             { state: { id: item.id } })} />
                     <PrimaryButton
-                    className="btn btn-danger"
+                        className="btn btn-danger"
                         text="Delete Product"
                         onClick={() => DeleteProduct(item.id)}
                     />
@@ -106,10 +107,10 @@ const ProductList = () => {
 
     return (
         <div className='container-fluid'>
-              <div className="fs-2 text-center">Product List</div>
-              <div>
-                <button className="btn btn-primary ms-5" onClick={()=> navigate("/product/create")} >Add Product</button>
-              </div>
+            <div className="fs-2 text-center">Product List</div>
+            <div>
+                <button className="btn btn-primary ms-5" onClick={() => navigate("/product/create")} >Add Product</button>
+            </div>
             <DetailsList
                 items={productList}
                 columns={columns}

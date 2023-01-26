@@ -40,14 +40,14 @@ namespace api.Controllers
             if (!editBasket.IsCompletedSuccessfully)
                 return BadRequest("Update Operation Failed.");
 
-            return Ok( editBasket.Result);
+            return Ok(editBasket.Result);
         }
         [HttpDelete]
         [Route("Delete/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var removeBasketItem = _basketItemBusiness.RemoveBasketItem(id);
-            if (!removeBasketItem.IsCompletedSuccessfully || removeBasketItem.Result == null)
+            var removeBasketItem = _basketItemBusiness.RemoveBasketItem(id).Result;
+            if (removeBasketItem == null)
                 return BadRequest("Already Deleted.");
 
             return Ok("Delete Operation Successfully Complated.");
@@ -61,7 +61,7 @@ namespace api.Controllers
             if (getList.IsFaulted)
                 return BadRequest("");
 
-            return Ok( getList.Result);
+            return Ok(getList.Result);
         }
         [HttpPost]
         [Route("Purchase/{basketId:int}")]
@@ -71,7 +71,7 @@ namespace api.Controllers
             if (!purchaseOrder.IsCompletedSuccessfully)
                 return BadRequest("");
 
-            return Ok( purchaseOrder);
+            return Ok(purchaseOrder);
         }
         [HttpGet]
         [Route("GetBasketId/{userId:int}")]
@@ -82,7 +82,7 @@ namespace api.Controllers
             if (getList.IsFaulted)
                 return BadRequest("");
 
-            return Ok( getList.Result);
+            return Ok(getList.Result);
         }
     }
 }

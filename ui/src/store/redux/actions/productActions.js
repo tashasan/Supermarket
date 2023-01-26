@@ -49,12 +49,11 @@ const getAllAction = () => {
     return async (dispatch) => {
         await getAll()
             .then(async (res) => {
-                console.log(res)
                 let response = res.data;
-                // const keys = ["createdAt", "updatedAt", "deletedAt", "basketItems", "categories"];
-                // Object.keys(response).forEach(i => {
-                //     keys.map((e) => delete response[i][e]);
-                // });
+                const keys = ["createdAt", "updatedAt", "deletedAt", "basketItems", "categories"];
+                Object.keys(response).forEach(i => {
+                    keys.map((e) => delete response[i][e]);
+                });
                 await dispatch(getAllReducer(response));
             })
     };

@@ -25,7 +25,7 @@ namespace Business.BasketItemBusiness
                     model.TotalPrice = checkStock.UnitPrice * vM.Quantity;
                     model.BasketId = basketId;
                     var result = _unitOfWork.BasketItemRepositoryService.Add(model);
-                     _unitOfWork.CommitAsync();
+                    _unitOfWork.CommitAsync();
                 }
 
                 return model;
@@ -47,7 +47,7 @@ namespace Business.BasketItemBusiness
                 getBasket.Result.Quantity = quantity;
                 getBasket.Result.TotalPrice = checkStock.UnitPrice * quantity;
                 var result = _unitOfWork.BasketItemRepositoryService.Update(getBasket.Result);
-                 _unitOfWork.CommitAsync();
+                _unitOfWork.CommitAsync();
                 return result;
 
             }
@@ -62,7 +62,7 @@ namespace Business.BasketItemBusiness
         {
             try
             {
-                var result = _unitOfWork.BasketItemRepositoryService.Get(x => x.BasketId == basketId && x.DeletedAt == null).Result.ToList();
+                var result = _unitOfWork.BasketItemRepositoryService.Get(x => x.BasketId == basketId && x.DeletedAt == null).Result.Where(w => w.Product.DeletedAt == null).ToList();
                 return result;
 
             }
@@ -77,7 +77,7 @@ namespace Business.BasketItemBusiness
         {
             try
             {
-                var getId =  _unitOfWork.BasketItemRepositoryService.GetFirst(a => a.Id == id);
+                var getId = _unitOfWork.BasketItemRepositoryService.GetFirst(a => a.Id == id);
                 var result = _unitOfWork.BasketItemRepositoryService.Find(getId.Id);
                 return result.Result;
 
@@ -96,7 +96,7 @@ namespace Business.BasketItemBusiness
                 var getBasket = _unitOfWork.BasketItemRepositoryService.GetFirst(u => u.Id == id && u.DeletedAt == null);
                 if (getBasket.Result == null)
                 {
-                  return null;
+                    return null;
                 }
                 var result = _unitOfWork.BasketItemRepositoryService.Delete(getBasket.Result);
                 _unitOfWork.CommitAsync();

@@ -23,7 +23,7 @@ const basketReducer = (state = initialState.basket, action) => {
         case ActionTypes.basket.PURCHASE_ACTION_BASKET:
             return {
                 ...state,
-                getById: {}
+                basket: initialState.basket.basket
             };
         case ActionTypes.basket.GETBASKETITEMS_ACTION:
             return {
